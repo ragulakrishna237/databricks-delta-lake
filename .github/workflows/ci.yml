@@ -1,0 +1,40 @@
+name: PySpark + Delta tests
+
+# Local PySpark + delta-spark only. No Databricks workspace or credentials.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: pytest (local Delta)
+    runs-on: ubuntu-latest
+
+    env:
+      SPARK_LOCAL_IP: 127.0.0.1
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run pipeline tests
+        run: python -m pytest tests/test_pipeline.py -q

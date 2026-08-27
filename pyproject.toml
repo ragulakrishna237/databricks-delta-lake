@@ -1,0 +1,17 @@
+[project]
+name = "databricks-delta-lake"
+version = "0.1.0"
+description = "Local PySpark + Delta bronze/silver/gold pipeline for synthetic e-commerce order events."
+requires-python = ">=3.11"
+readme = "README.md"
+dependencies = [
+  "pyspark==3.5.3",
+  "delta-spark==3.2.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
