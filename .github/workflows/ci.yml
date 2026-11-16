@@ -37,4 +37,20 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run pipeline tests
-        run: python -m pytest tests/test_pipeline.py -q
+        run: python -m pytest tests/ -q
+
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+          echo "$HOME/.databricks/bin" >> "$GITHUB_PATH"
+
+      - name: Databricks bundle validate
+        env:
+          DATABRICKS_HOST: https://adb-placeholder.azuredatabricks.net
+          DATABRICKS_TOKEN: dapi-placeholder-not-a-real-token
+        run: databricks bundle validate
+        continue-on-error: true
+
+      # Free-tier / no workspace: deploy stays commented.
+      # - name: Bundle deploy (dev dry-run)
+      #   run: databricks bundle deploy --target dev

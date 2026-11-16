@@ -1,0 +1,4 @@
+job_id,job_name,workspace_id,period_start_time,period_end_time
+1001,fi-autoloader-hourly,1234567890123456,2024-06-03T09:00:00Z,2024-06-03T11:00:00Z
+1002,fi-security-master-dlt,1234567890123456,2024-06-03T09:00:00Z,2024-06-03T12:00:00Z
+2001,fi-adhoc-sql,9876543210987654,2024-06-03T09:00:00Z,2024-06-03T09:30:00Z

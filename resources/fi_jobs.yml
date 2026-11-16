@@ -1,0 +1,17 @@
+resources:
+  jobs:
+    fi_autoloader_hourly:
+      name: fi-autoloader-hourly
+      tasks:
+        - task_key: generate_and_merge
+          spark_python_task:
+            python_file: ../fi_autoloader/notebooks/fi_autoloader.py
+          libraries:
+            - whl: ../fi_autoloader
+
+    fi_cost_long_run_watch:
+      name: fi-cost-cancel-long-runs
+      tasks:
+        - task_key: cancel_long_runs
+          spark_python_task:
+            python_file: ../fi_cost/cancel_long_runs.py

@@ -1,0 +1,28 @@
+bundle:
+  name: databricks-delta-lake
+
+include:
+  - resources/*.yml
+
+artifacts:
+  fi_autoloader:
+    type: whl
+    path: ./fi_autoloader
+    build: python -m pip wheel --no-deps -w dist .
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-placeholder.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-placeholder.azuredatabricks.net
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - level: CAN_MANAGE
+        group_name: fi-ops

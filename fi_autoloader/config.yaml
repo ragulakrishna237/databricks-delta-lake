@@ -1,0 +1,29 @@
+# Config for the Fixed Income Auto Loader demonstration.
+# Original e-commerce pipeline under src/ is unchanged.
+
+landing:
+  path: ./data/fi_landing
+  format: json
+  hours: 3
+  files_per_hour: 1
+  rows_per_file: 48
+  seed: 42
+
+autoloader:
+  use_cloud_files: false
+  schema_evolution_mode: addNewColumns
+  rescued_data_column: _rescued_data
+  infer_column_types: true
+  schema_location: ./data/fi_schema
+  checkpoint_location: ./data/fi_checkpoints
+
+silver:
+  path: ./data/fi_delta/silver/fi_market_positions
+  partition_by: as_of_hour
+
+gold:
+  path: ./data/fi_delta/gold/fi_holdings_current
+  merge_keys:
+    - account_id
+    - instrument_id
+    - as_of_ts

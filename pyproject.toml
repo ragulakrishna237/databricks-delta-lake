@@ -7,6 +7,7 @@ readme = "README.md"
 dependencies = [
   "pyspark==3.5.3",
   "delta-spark==3.2.1",
+  "pyyaml>=6.0",
 ]
 
 [project.optional-dependencies]
@@ -14,4 +15,4 @@ test = ["pytest"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+pythonpath = [".", "fi_autoloader/src"]

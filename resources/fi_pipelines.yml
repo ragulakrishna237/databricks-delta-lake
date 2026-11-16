@@ -1,0 +1,10 @@
+resources:
+  pipelines:
+    fi_security_master:
+      name: fi-security-master-dlt
+      libraries:
+        - file:
+            path: ../fi_uc/dlt_security_master.py
+      catalog: fi_invest
+      target: gold
+      development: true

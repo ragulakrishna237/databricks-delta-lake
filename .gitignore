@@ -11,6 +11,11 @@ spark-warehouse/
 metastore_db/
 derby.log
 checkpoint/
+data/
+dist/
+build/
+*.whl
+mlruns/
 
 # tests
 .pytest_cache/
