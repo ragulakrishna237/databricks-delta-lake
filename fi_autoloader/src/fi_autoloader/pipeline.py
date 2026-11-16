@@ -58,7 +58,11 @@ def autoloader_read_stream(spark: SparkSession, cfg: dict[str, Any]) -> DataFram
 
 def batch_read_landing(spark: SparkSession, landing_path: str | Path) -> DataFrame:
     """Local stand-in for Auto Loader: typed JSON plus a rescued-data column."""
-    df = spark.read.schema(FI_SCHEMA).json(spark_uri(landing_path))
+    df = (
+        spark.read.schema(FI_SCHEMA)
+        .option("recursiveFileLookup", "true")
+        .json(spark_uri(landing_path))
+    )
     return df.withColumn("_rescued_data", F.lit(None).cast(StringType()))
 
 
